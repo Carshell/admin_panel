@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS servers (
+    id SERIAL PRIMARY KEY,
+    ip VARCHAR(45) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tenants (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS services (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    api_v VARCHAR(50),
+    panel_v VARCHAR(50),
+    monitor_url TEXT,
+    server_id INTEGER REFERENCES servers(id) ON DELETE SET NULL,
+    tenant_id INTEGER REFERENCES tenants(id) ON DELETE SET NULL
+);
